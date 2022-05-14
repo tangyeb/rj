@@ -23,9 +23,9 @@ public class SendSms {
     public static com.aliyun.dysmsapi20170525.Client createClient(String accessKeyId, String accessKeySecret) throws Exception {
         Config config = new Config()
                 // 您的AccessKey ID
-                .setAccessKeyId("LTAI5tGSxUs7U11LDjKM8BBT")
+                .setAccessKeyId("")
                 // 您的AccessKey Secret
-                .setAccessKeySecret("jVdowa57XnQVj8gUMUw48icmVjmfjU");
+                .setAccessKeySecret("");
         // 访问的域名
         config.endpoint = "dysmsapi.aliyuncs.com";
         return new com.aliyun.dysmsapi20170525.Client(config);
