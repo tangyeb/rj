@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.SetmealMapper">
+
+    <resultMap id="setmealResultMap" type="com.itheima.entity.Setmeal">
+        <result property="categoryId" column="category_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+    <update id="changeStatusTo1">
+        update tb_setmeal set status=1 where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </update>
+    <update id="changeStatusTo0">
+        update tb_setmeal set status=0 where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </update>
+    <update id="update">
+        update tb_setmeal
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                category_id= #{categoryId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            <if test="createTime != null ">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null ">
+                update_time = #{updateTime},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="categoryName != null and categoryName=''">
+                category_name = #{categoryName},
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+    <update id="delete">
+        update tb_setmeal set `deleted` = 1 where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </update>
+    <select id="selectAll" resultType="com.itheima.entity.Setmeal">
+        select *
+        from tb_setmeal
+        where deleted= 0
+        and
+        <if test="name != null and name!=''">
+            name like #{name}
+        </if>
+        limit #{page},#{pageSize}
+    </select>
+    <select id="selectById" resultType="com.itheima.entity.Setmeal">
+        select *
+        from tb_setmeal
+        where deleted = 0
+          and id = #{id};
+    </select>
+</mapper>

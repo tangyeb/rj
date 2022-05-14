@@ -1,0 +1,22 @@
+package com.itheima.config;
+
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author tang
+ * @data 2022/5/3 18:38
+ */
+@Configuration
+public class MybatisPlusConfig {
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor(){
+        //1 创建MybatisPlusInterceptor拦截器对象
+        MybatisPlusInterceptor mpInterceptor=new MybatisPlusInterceptor();
+        //2 添加分页拦截器
+        mpInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+        return mpInterceptor;
+    }
+}
